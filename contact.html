@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alex's Favorite Reads | Contact</title>
+    <meta name="description" content="Contact Alex with book recommendations or feedback.">
+    <meta name="author" content="Your Name">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Alex's Favorite Reads</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<section class="main-content">
+    <h2>Contact Me</h2>
+
+    <p>
+        I would love to hear your book recommendations or feedback about the website.
+        Please fill out the form below. While the form does not submit data to a server,
+        it demonstrates how user input can be collected.
+    </p>
+
+    <form action="#" method="post">
+
+        <label for="name">Full Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email Address:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="genre">Favorite Genre:</label><br>
+        <select id="genre" name="genre">
+            <option>Fiction</option>
+            <option>Memoir</option>
+            <option>Self-Development</option>
+            <option>Historical</option>
+        </select><br><br>
+
+        <label for="message">Book Recommendation or Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="40"></textarea><br><br>
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+    <div id="confirmation" class="form-confirmation" aria-live="polite" hidden>
+    </div>
+
+    <script>
+    (function(){
+        function escapeHtml(str){
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        document.addEventListener('DOMContentLoaded', function(){
+            var form = document.querySelector('form');
+            var conf = document.getElementById('confirmation');
+
+            if(!form || !conf) return;
+
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+
+                var fd = new FormData(form);
+                var name = fd.get('name') || '(not provided)';
+                var email = fd.get('email') || '(not provided)';
+                var genre = fd.get('genre') || '(not provided)';
+                var message = fd.get('message') || '(no message)';
+
+                var html = '<h3>Thank you — we shall stay in touch soon!</h3>' +
+                           '<p>Here is a summary of what you submitted:</p>' +
+                           '<ul>' +
+                           '<li><strong>Name:</strong> ' + escapeHtml(name) + '</li>' +
+                           '<li><strong>Email:</strong> ' + escapeHtml(email) + '</li>' +
+                           '<li><strong>Favorite genre:</strong> ' + escapeHtml(genre) + '</li>' +
+                           '<li><strong>Message:</strong> ' + escapeHtml(message) + '</li>' +
+                           '</ul>' +
+                           '<p>If you entered a real email address, I will use it to follow up.</p>' +
+                           '<button id="conf-close">Close</button>';
+
+                conf.innerHTML = html;
+                conf.hidden = false;
+
+                form.reset();
+
+                var closeBtn = document.getElementById('conf-close');
+                if(closeBtn){
+                    closeBtn.focus();
+                    closeBtn.addEventListener('click', function(){ conf.hidden = true; });
+                }
+            });
+        });
+    })();
+    </script>
+
+</section>
+
+</main>
+
+<footer>
+    <p>Copyright © 2026 Alex's Favorite Reads</p>
+    <p>Email: <a href="contact.html">amlupo@asu.edu</a></p>
+    <p><a href="https://www.goodreads.com" target="_blank">Visit Goodreads</a></p>
+</footer>
+
+</body>
+</html>
